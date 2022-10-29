@@ -16,13 +16,10 @@ jobs:
                 
       - name: Setup Pandoc
         uses: r-lib/actions/setup-pandoc@v2
-      
-      - name: Setup Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
         
       - name: Install R packages
         run: |   
-          install.packages(c("dplyr","ggplot2","gganimate","ggpath","ggtext","glue","htmltools","jsonlite","lubridate","purrr","quarto","ragg","stringr","tidyr"))
+          install.packages(c("dplyr","ggplot2","gganimate","ggpath","ggtext","glue","htmltools","jsonlite","lubridate","purrr","rmarkdown","ragg","stringr","tidyr"))
         shell: Rscript {0}
       
       - name: Run scrap and render script
