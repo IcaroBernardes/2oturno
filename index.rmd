@@ -20,6 +20,7 @@ output:
 # library(stringr)
 # library(tidyr)
 
+library(remotes)
 library(pacman)
 pacman::p_load(dplyr, ggplot2, gganimate, ggpath,
                ggtext, glue, purrr, ragg, stringr, tidyr)
