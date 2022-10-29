@@ -1,10 +1,13 @@
 # 0. Controle de Pacotes e Fontes
 ## Carrega bibliotecas
-library(dplyr)
-library(glue)
-library(jsonlite)
-library(lubridate)
-library(rmarkdown)
+# library(dplyr)
+# library(glue)
+# library(jsonlite)
+# library(lubridate)
+# library(rmarkdown)
+
+library(pacman)
+pacman::p_load(dplyr, glue, jsonlite, lubridate, rmarkdown)
 
 ################################################################################
 # 1. Carregamento e manejo dos dados

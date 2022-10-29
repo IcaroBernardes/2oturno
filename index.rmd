@@ -9,16 +9,20 @@ output:
 ################################################################################
 # 0. Controle de Pacotes e Fontes
 ## Carrega bibliotecas
-library(dplyr)
-library(ggplot2)
-library(gganimate)
-library(ggpath)
-library(ggtext)
-library(glue)
-library(purrr)
-library(ragg)
-library(stringr)
-library(tidyr)
+# library(dplyr)
+# library(ggplot2)
+# library(gganimate)
+# library(ggpath)
+# library(ggtext)
+# library(glue)
+# library(purrr)
+# library(ragg)
+# library(stringr)
+# library(tidyr)
+
+library(pacman)
+pacman::p_load(dplyr, ggplot2, gganimate, ggpath,
+               ggtext, glue, purrr, ragg, stringr, tidyr)
 
 ## Define parâmetros dos chunks
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE,
