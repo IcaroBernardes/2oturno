@@ -4,7 +4,7 @@ library(dplyr)
 library(glue)
 library(jsonlite)
 library(lubridate)
-library(quarto)
+library(rmarkdown)
 
 ################################################################################
 # 1. Carregamento e manejo dos dados
@@ -34,4 +34,4 @@ saveRDS(dados, "dados.RDS")
 
 ################################################################################
 # 2. Produz a página com o gif (render)
-quarto::quarto_render("index.qmd", pandoc_args = "--self-contained")
+rmarkdown::render("index.rmd")

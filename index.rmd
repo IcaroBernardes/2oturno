@@ -1,5 +1,7 @@
 ---
-format: html
+output:
+  html_document:
+    self_contained: true
 ---
 
 ```{r setup, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE}
@@ -13,7 +15,6 @@ library(gganimate)
 library(ggpath)
 library(ggtext)
 library(glue)
-library(htmltools)
 library(purrr)
 library(ragg)
 library(stringr)
