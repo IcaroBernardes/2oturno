@@ -8,7 +8,7 @@
 
 library(remotes)
 library(pacman)
-pacman::p_load(dplyr, glue, jsonlite, lubridate, rmarkdown)
+pacman::p_load(dplyr, glue, jsonlite, lubridate, rmarkdown, curl)
 
 ################################################################################
 # 1. Carregamento e manejo dos dados
