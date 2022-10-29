@@ -19,7 +19,7 @@ jobs:
         
       - name: Install R packages
         run: |   
-          install.packages(c("remotes","pacman","curl","dplyr","ggplot2","gganimate","ggpath","ggtext","glue","gridtext","htmltools","jsonlite","lubridate","magick","purrr","rmarkdown","ragg","stringr","textshaping","tidyr"))
+          install.packages(c("remotes","pacman","curl","dplyr","ggplot2","gganimate","ggpath","glue","jsonlite","lubridate","magick","purrr","rmarkdown","ragg","stringr","textshaping","tidyr"))
         shell: Rscript {0}
       
       - name: Run scrap and render script
