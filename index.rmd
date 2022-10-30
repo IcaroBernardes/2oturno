@@ -76,10 +76,11 @@ dados <- dados %>%
   dplyr::mutate(pct = stringr::str_replace(pct, ",", ".")) %>% 
   dplyr::mutate(across(.cols = c(pct, votos), .fns = as.numeric))
 
-#################### TESTE ############################################
+## Remove linhas com zero votos para ambos candidatos
 dados <- dados %>% 
-mutate(pct = pct+sample.int(n()+1, n())/10)
-#################### TESTE ############################################
+  dplyr::group_by(data) %>% 
+  dplyr::filter(pct != 0) %>% 
+  dplyr::ungroup()
 
 ## Adiciona informações dos candidatos
 dados <- dados %>% dplyr::right_join(cand_info)
