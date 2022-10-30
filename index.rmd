@@ -9,22 +9,18 @@ output:
 ################################################################################
 # 0. Controle de Pacotes e Fontes
 ## Carrega bibliotecas
-# library(dplyr)
-# library(ggplot2)
-# library(gganimate)
-# library(ggpath)
-# library(ggtext)
-# library(glue)
-# library(purrr)
-# library(ragg)
-# library(stringr)
-# library(tidyr)
-
-library(remotes)
-library(pacman)
-pacman::p_load(dplyr, ggplot2, gganimate, ggpath,
-               glue, purrr, ragg, stringr, tidyr,
-               magick, textshaping)
+library(dplyr)
+library(gifski)
+library(ggplot2)
+library(gganimate)
+library(ggpath)
+library(ggtext)
+library(glue)
+library(magick)
+library(purrr)
+library(ragg)
+library(stringr)
+library(tidyr)
 
 ## Define parâmetros dos chunks
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE,
@@ -46,6 +42,7 @@ cand_info <- dplyr::tibble(
 ```
 
 ```{css}
+
 #titulo {
   font-weight: bold;
   font-size: 50px;
@@ -105,7 +102,7 @@ dados$data %>% purrr::walk(
                 size = 1, data = dados) +
       geom_point(aes(x = data, y = pct, color = I(cor)),
                  size = 7, data = dados) +
-      geom_text(aes(x = data, y = pct, label = label),
+      ggtext::geom_richtext(aes(x = data, y = pct, label = label),
                             fill = "white", label.colour = NA,
                             label.padding = unit(c(0, 0, 0, 0.1), "npc"),
                             hjust = 0, size = 1.5, data = dados) +
