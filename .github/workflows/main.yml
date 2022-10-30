@@ -1,8 +1,7 @@
 name: Scrap and Render
 on:
   repository_dispatch:
-  schedule:
-    - cron: '0/5 * * * *'
+    types: [on-demand-test]
 jobs:
   scrap-and-render:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession
