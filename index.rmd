@@ -69,18 +69,12 @@ dados <- dados %>%
   dplyr::select(candidato = nm,
                 votos = vap,
                 pct = pvap,
-                data)
+                tempo = data)
 
 ## Converte os valores de votos válidos e pct de caractere a númerico
 dados <- dados %>% 
   dplyr::mutate(pct = stringr::str_replace(pct, ",", ".")) %>% 
   dplyr::mutate(across(.cols = c(pct, votos), .fns = as.numeric))
-
-## Remove linhas com zero votos para ambos candidatos
-dados <- dados %>% 
-  dplyr::group_by(data) %>% 
-  dplyr::filter(pct != 0) %>% 
-  dplyr::ungroup()
 
 ## Adiciona informações dos candidatos
 dados <- dados %>% dplyr::right_join(cand_info)
@@ -106,15 +100,15 @@ dados$data %>% purrr::walk(
   function(dados){
     
     p = plot +
-      geom_path(aes(x = data, y = pct, color = I(cor)),
+      geom_path(aes(x = tempo, y = pct, color = I(cor)),
                 size = 1, data = dados) +
-      geom_point(aes(x = data, y = pct, color = I(cor)),
+      geom_point(aes(x = tempo, y = pct, color = I(cor)),
                  size = 7, data = dados) +
-      ggtext::geom_richtext(aes(x = data, y = pct, label = label),
+      ggtext::geom_richtext(aes(x = tempo, y = pct, label = label),
                             fill = "white", label.colour = NA,
                             label.margin = unit(c(0, 0, 0, 0.03), "npc"),
                             hjust = 0, size = 1.5, data = dados) +
-      ggpath::geom_from_path(aes(x = data, y = pct, path = path),
+      ggpath::geom_from_path(aes(x = tempo, y = pct, path = path),
                              width = 0.17, height = 0.17, data = dados)
     
     assign("plot", p, envir = .GlobalEnv)
@@ -135,7 +129,7 @@ plot <- plot +
     panel.grid.minor = element_blank(),
     plot.margin = margin(0.03,0.03,0.03,0.03,"npc")
   ) +
-  gganimate::transition_reveal(along = data) +
+  gganimate::transition_reveal(along = tempo) +
   gganimate::ease_aes('quadratic-in-out')
 
 ## Define configurações da animação
