@@ -1,10 +1,9 @@
 name: Scrap and Render
 on:
   repository_dispatch:
-    types: [on-demand-test]
+    types: [run-ping]
 jobs:
   scrap-and-render:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession
     runs-on: macOS-latest
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
