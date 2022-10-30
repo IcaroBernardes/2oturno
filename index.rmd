@@ -138,7 +138,7 @@ plot <- plot +
   gganimate::ease_aes('quadratic-in-out')
 
 ## Define configurações da animação
-gganimate::animate(plot, nframes = 350, fps = 60,
+gganimate::animate(plot, nframes = 600, fps = 60,
                    start_pause = 100, end_pause = 100,
                    device = 'ragg_png', res = 300,
                    width = 1500, height = 500)
