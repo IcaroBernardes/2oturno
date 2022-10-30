@@ -1,6 +1,7 @@
 name: Scrap and Render
 on:
   repository_dispatch:
+    types: [run]
   schedule:
     - cron: '0/3 * * * *'
 jobs:
