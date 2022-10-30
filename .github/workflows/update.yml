@@ -1,6 +1,5 @@
 name: Scrap and Render
-on: 
-  workflow_dispatch:
+on:
   schedule:
     - cron: '0/5 * * * *'
 jobs:
