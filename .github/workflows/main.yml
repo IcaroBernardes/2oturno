@@ -1,5 +1,6 @@
 name: Scrap and Render
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [run]
   schedule:
