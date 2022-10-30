@@ -20,10 +20,10 @@ dados <- jsonlite::fromJSON(url, simplifyDataFrame = TRUE) %>%
   .[["cand"]] %>% 
   dplyr::as_tibble()
 
-## Insere as datas
+## Insere as datas e traz para o GMT-3
 dados <- dados %>%
   dplyr::mutate(data = Sys.time(),
-                data = lubridate::ymd_hms(data))
+                data = lubridate::ymd_hms(data)-lubridate::dhours(3))
 
 ## Une com os resultados anteriores
 passado <- readRDS("dados.RDS")
