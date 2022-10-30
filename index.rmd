@@ -69,7 +69,8 @@ dados <- dados %>%
   dplyr::select(candidato = nm,
                 votos = vap,
                 pct = pvap,
-                tempo = data)
+                tempo = data,
+                apuradas)
 
 ## Converte os valores de votos válidos e pct de caractere a númerico
 dados <- dados %>% 
@@ -89,6 +90,9 @@ dados <- dados %>%
 dados <- dados %>% 
   dplyr::group_by(partido) %>% 
   tidyr::nest()
+
+## Progresso de apuração
+labels <- dados$data[[1]]$apuradas
 
 ################################################################################
 # 3. Produção do gráfico
@@ -120,7 +124,8 @@ dados$data %>% purrr::walk(
 plot <- plot +
   scale_y_continuous(expand = expansion(mult = c(0.25,0.25)),
                      labels = scales::label_percent(scale = 1)) +
-  scale_x_datetime(expand = expansion(mult = c(0.05,0.35))) +
+  scale_x_datetime(expand = expansion(mult = c(0.05,0.35)),
+                   labels = labels) +
   theme_minimal() +
   theme(
     text = element_text(size = 8),
