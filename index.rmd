@@ -74,8 +74,9 @@ dados <- dados %>%
 
 ## Converte os valores de votos válidos e pct de caractere a númerico
 dados <- dados %>% 
-  dplyr::mutate(pct = stringr::str_replace(pct, ",", ".")) %>% 
-  dplyr::mutate(across(.cols = c(pct, votos), .fns = as.numeric))
+  dplyr::mutate(across(.cols = c(pct, apuradas),
+                       .fns = ~stringr::str_replace(., ",", "."))) %>% 
+  dplyr::mutate(across(.cols = c(pct, votos, apuradas), .fns = as.numeric))
 
 ## Adiciona informações dos candidatos
 dados <- dados %>% dplyr::right_join(cand_info)
@@ -91,9 +92,6 @@ dados <- dados %>%
   dplyr::group_by(partido) %>% 
   tidyr::nest()
 
-## Progresso de apuração
-labels <- dados$data[[1]]$apuradas
-
 ################################################################################
 # 3. Produção do gráfico
 ## Inicializa o objeto que guarda o gráfico
@@ -104,19 +102,16 @@ dados$data %>% purrr::walk(
   function(dados){
     
     p = plot +
-      geom_path(aes(x = tempo, y = pct, color = I(cor)),
+      geom_path(aes(x = apuradas, y = pct, color = I(cor)),
                 size = 1, data = dados) +
-      geom_point(aes(x = tempo, y = pct, color = I(cor)),
+      geom_point(aes(x = apuradas, y = pct, color = I(cor)),
                  size = 7, data = dados) +
-      ggtext::geom_richtext(aes(x = tempo, y = pct, label = label),
+      ggtext::geom_richtext(aes(x = apuradas, y = pct, label = label),
                             fill = "white", label.colour = NA,
                             label.margin = unit(c(0, 0, 0, 0.03), "npc"),
                             hjust = 0, size = 1.5, data = dados) +
-      ggpath::geom_from_path(aes(x = tempo, y = pct, path = path),
-                             width = 0.17, height = 0.17, data = dados) +
-      ggtext::geom_richtext(aes(x = tempo, y = 40, label = glue("{labels}%")),
-                            fill = "white", label.colour = NA,
-                            size = 1, data = dados)
+      ggpath::geom_from_path(aes(x = apuradas, y = pct, path = path),
+                             width = 0.17, height = 0.17, data = dados)
     
     assign("plot", p, envir = .GlobalEnv)
     
@@ -127,7 +122,8 @@ dados$data %>% purrr::walk(
 plot <- plot +
   scale_y_continuous(expand = expansion(mult = c(0.25,0.25)),
                      labels = scales::label_percent(scale = 1)) +
-  scale_x_datetime(expand = expansion(mult = c(0.05,0.35))) +
+  scale_x_continuous(expand = expansion(mult = c(0.05,0.35)),
+                     labels = scales::label_percent(scale = 1)) +
   theme_minimal() +
   theme(
     text = element_text(size = 8),
@@ -137,7 +133,7 @@ plot <- plot +
     panel.grid.minor = element_blank(),
     plot.margin = margin(0.03,0.03,0.03,0.03,"npc")
   ) +
-  gganimate::transition_reveal(along = tempo) +
+  gganimate::transition_reveal(along = apuradas) +
   gganimate::ease_aes('quadratic-in-out')
 
 ## Define configurações da animação
