@@ -1,8 +1,10 @@
-name: Build and Deploy
+name: Scrap and Render
 on: 
   workflow_dispatch:
+  schedule:
+    - cron: '0/5 * * * *'
 jobs:
-  build-and-deploy:
+  scrap-and-render:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession
     runs-on: macOS-latest
     env:
@@ -22,12 +24,6 @@ jobs:
         run: |   
           install.packages(c("dplyr","gifski","ggplot2","gganimate","ggpath","ggtext","glue","jsonlite","lubridate","magick","purrr","rmarkdown","ragg","stringr","tidyr"))
         shell: Rscript {0}
-      
-      - name: Cache pacotes do R
-        uses: actions/cache@v1 
-        with: 
-          path: ${{ env.R_LIBS_USER }} 
-          key: r-${{ hashFiles('DESCRIPTION') }}
      
       - name: Roda script de extração dos resultados (scrap) e produção da página (render)
         run: |   
