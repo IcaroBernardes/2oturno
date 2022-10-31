@@ -1,10 +1,6 @@
 name: Scrap and Render
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [run]
-  schedule:
-    - cron: '0/3 * * * *'
 jobs:
   scrap-and-render:
     runs-on: macOS-latest
